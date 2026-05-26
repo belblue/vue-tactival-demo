@@ -1,17 +1,19 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { SAMPLE_COT } from "../lib/sample-cot";
+import { useCot } from "../composables/useCot";
 
+const { status, parse } = useCot();
 const xmlInput = ref<string>(SAMPLE_COT);
 </script>
 <template>
-  <div class="cot-panel panel">
+  <div class="cot-panel panel interactive">
     <h2 class="panel__title">Cursor on Target</h2>
     <div class="cot-panel__input-row">
       <textarea class="cot-panel__textarea" v-model="xmlInput"></textarea>
-      <button class="btn">Parse</button>
+      <button class="btn" @click="parse(xmlInput)">Parse</button>
     </div>
-    <span class="cot-panel__status"></span>
+    <span v-show="status" class="cot-panel__status">{{ status }}</span>
   </div>
 </template>
 <style scoped lang="scss">

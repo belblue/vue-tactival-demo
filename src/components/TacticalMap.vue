@@ -2,6 +2,9 @@
 import { useTemplateRef, onMounted, onBeforeUnmount } from "vue";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+import { useMap } from "../composables/useMaps";
+
+const { setMap } = useMap();
 
 const DARK_STYLE =
   "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json";
@@ -17,9 +20,11 @@ onMounted(() => {
     center: [-0.8891, 41.6488], //lng,lat
     zoom: 10, //scale
   });
+  setMap(map); //register the new instance
 });
 
 onBeforeUnmount(() => {
+  setMap(null); //unregister before tearing down
   map?.remove();
   map = null;
 });

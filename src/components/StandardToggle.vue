@@ -1,8 +1,23 @@
-<script lang="ts" setup></script>
+<script setup lang="ts">
+import { useStandard } from "../composables/useStandard";
+const { currentStandard, setStandard } = useStandard();
+</script>
 <template>
-  <div class="standard-toggle" aria-label="Symbology standard">
-    <button class="standard-toggle__btn" aria-pressed="true">APP-6D</button>
-    <button class="standard-toggle__btn" aria-pressed="false">2525C</button>
+  <div class="interactive standard-toggle" aria-label="Symbology standard">
+    <button
+      class="standard-toggle__btn"
+      :aria-pressed="currentStandard === 'APP6'"
+      @click="setStandard('APP6')"
+    >
+      APP-6
+    </button>
+    <button
+      :aria-pressed="currentStandard === '2525C'"
+      @click="setStandard('2525C')"
+      class="standard-toggle__btn"
+    >
+      2525C
+    </button>
   </div>
 </template>
 <style scoped lang="scss">
