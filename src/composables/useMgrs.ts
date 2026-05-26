@@ -2,6 +2,7 @@ import { ref, watch, onWatcherCleanup } from "vue";
 import type { Ref } from "vue";
 import type maplibregl from "maplibre-gl";
 import { forward } from "mgrs";
+import { formatMgrs } from "../lib/mgrs-format";
 
 export function useMgrs(mapRef: Ref<maplibregl.Map | null>) {
   const mgrs = ref<string>("");
@@ -29,8 +30,4 @@ export function useMgrs(mapRef: Ref<maplibregl.Map | null>) {
     { immediate: true },
   );
   return { mgrs, lat, lng, visible };
-}
-
-function formatMgrs(raw: string): string {
-  return raw.replace(/^(\d{1,2}[C-X])([A-Z]{2})(\d{5})(\d{5})$/, "$1$2 $3 $4");
 }
